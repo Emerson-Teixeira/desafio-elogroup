@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const LogoContainer = styled.div`
   width: 100%;
-  font-size: 2.5em;
+  font-size: 2.2em;
   display: flex;
   align-items: center;
   justify-items: center;
@@ -14,5 +14,9 @@ export const LogoContainer = styled.div`
     display: block;
     text-align: center;
     width: 100%;
+  }
+  :hover{
+    cursor: pointer;
+    opacity: 0.9;
   }
 `;

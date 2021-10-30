@@ -7,6 +7,7 @@ export const Container = styled.div`
   align-items: center;
   justify-content: center;
   flex-flow: column nowrap;
+  margin-top: 10px;
 `;
 
 export const FormWrapper = styled.div`

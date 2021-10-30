@@ -12,5 +12,27 @@ export function saveLeads(lead) {
     return true;
   } catch (error) {
     errorToast("Não Foi possivel salvar o lead");
+    return false;
+  }
+}
+export function getLeads() {
+  try {
+    const results = JSON.parse(localStorage.getItem("arrayLeads"));
+    if (results) {
+      return results;
+    } else {
+      return [];
+    }
+  } catch (error) {
+    errorToast("Não Foi possivel salvar o lead");
+    return false;
+  }
+}
+
+export function deleteAllLeads() {
+  try {
+    localStorage.removeItem("arrayLeads");
+  } catch (error) {
+    errorToast("Não Foi possivel excluir os leads");
   }
 }

@@ -86,7 +86,7 @@ export default function CreateLead(props) {
   }
   return (
     <Container>
-      <Header title="Novo Lead" />
+      <Header history={props.history} title="Novo Lead" />
       <FormContainer>
         <DataContainer>
           <FormField error={formError.name}>
