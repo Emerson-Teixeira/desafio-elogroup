@@ -8,6 +8,8 @@ export const theme1 = {
   text: "hsl(0, 0%, 100%)",
   logoBackground: "hsl(0, 0%, 98%)",
   logoText: "hsl(200, 15%, 8%)",
+  backgroundInverted: "hsl(0, 0%, 98%)",
+  textInverted: "hsl(200, 15%, 8%)",
 };
 
 export const theme2 = {
@@ -20,4 +22,6 @@ export const theme2 = {
   text: "hsl(200, 15%, 8%)",
   logoBackground: "hsl(207, 26%, 17%)",
   logoText: "hsl(0, 0%, 100%)",
+  backgroundInverted: "hsl(207, 26%, 17%)",
+  textInverted: "hsl(0, 0%, 100%)",
 };

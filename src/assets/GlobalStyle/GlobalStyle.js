@@ -18,5 +18,12 @@ export const GlobalStyle = createGlobalStyle`
         margin: 0;
         padding: 0;
     }
-    
+        .Toastify__toast--error {
+            background: ${({ theme }) => theme.backgroundInverted} !important;
+            color:  ${({ theme }) => theme.textInverted} !important;
+    }
+    .Toastify__toast--success {
+            background: ${({ theme }) => theme.backgroundInverted} !important;
+            color:  ${({ theme }) => theme.textInverted} !important;
+    }
 `;

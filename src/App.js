@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.min.css";
 
 //routes
 
@@ -15,10 +17,11 @@ const objTheme = {
 };
 
 function App() {
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useState("dark");
   return (
     <ThemeProvider theme={objTheme[theme]}>
       <GlobalStyle />
+      <ToastContainer limit={2} />
       <ThemeContext.Provider value={{ theme, setTheme }}>
         <Routes />
       </ThemeContext.Provider>

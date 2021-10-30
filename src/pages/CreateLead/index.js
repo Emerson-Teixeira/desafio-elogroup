@@ -48,15 +48,15 @@ export default function CreateLead(props) {
     };
     if (!data.name) {
       errors.name = true;
-      errorToast("o nome não pode ficar vazio");
+      errorToast("O nome não pode ficar vazio");
     }
     if (!regPhone.test(data.phone)) {
       errors.phone = true;
-      errorToast("insira um telefone valido");
+      errorToast("Insira um telefone valido");
     }
     if (!regEmail.test(data.email)) {
       errors.email = true;
-      errorToast("insira um email valido");
+      errorToast("Insira um email valido");
     }
     if (!tableOptions.find((Element) => Element.status === true)) {
       errors.options = true;
@@ -69,15 +69,19 @@ export default function CreateLead(props) {
     setFormError(errors);
     return true;
   }
+
   function handleLead(e) {
     e.preventDefault();
     if (checkForm()) {
-      saveLeads({
-        ...data,
-        oportunidades: tableOptions
-          .filter((Element) => Element.status === true)
-          .map((Element) => Element.tipo),
-      });
+      if (
+        saveLeads({
+          ...data,
+          oportunidades: tableOptions
+            .filter((Element) => Element.status === true)
+            .map((Element) => Element.tipo),
+        })
+      )
+        props.history.push("/");
     }
   }
   return (

@@ -1,5 +1,4 @@
 import { toast } from "react-toastify";
-
 const toastConfig = {
   position: "top-right",
   autoClose: 3700,

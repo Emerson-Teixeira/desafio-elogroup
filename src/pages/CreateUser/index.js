@@ -84,7 +84,7 @@ export default function CreateUser(props) {
     };
     if (!form.user) {
       errors.user = true;
-      errorToast("o usuario não pode ficar vazio");
+      errorToast("O usuario não pode ficar vazio");
     }
     if (!checkPassword(form.password)) {
       errors.password = true;

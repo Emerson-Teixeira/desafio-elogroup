@@ -12,12 +12,12 @@ export const Container = styled.div`
 export const FormWrapper = styled.div`
   box-shadow: 0px 0px 10px -0px rgba(0, 0, 0, 1);
   border-radius: 6px;
-  width: 25%;
+  width: 40%;
   min-width: 300px;
   border: 1px solid ${(props) => props.theme.text};
   display: flex;
   flex-flow: column nowrap;
-  padding: 10px;
+  padding: 20px;
   justify-content: center;
   align-items: center;
 `;
@@ -48,7 +48,7 @@ export const FormField = styled.div`
 export const CustomButton = styled.button`
   box-shadow: 0px 0px 10px -0px rgba(0, 0, 0, 1);
   height: 33px;
-  width: 125px;
+  width: 70%;
   background-color: ${({ theme }) => theme.buttons};
   border: none;
   color: ${({ theme }) => theme.text};
@@ -67,6 +67,7 @@ export const CustomButton = styled.button`
     transform: translateY(-2px);
     cursor: pointer;
   }
+  margin-bottom: 20px;
 `;
 
 export const CustomSpan = styled.span`
