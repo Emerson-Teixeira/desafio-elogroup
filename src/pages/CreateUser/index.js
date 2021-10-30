@@ -12,7 +12,7 @@ import {
   FormWrapper,
 } from "./styles";
 
-export default function CreateUser() {
+export default function CreateUser(props) {
   let regex =
     /^(?=.*[@!#$%^&*()/\\])(?=.*[0-9])(?=.*[a-zA-Z])[@!#$%^&*()/\\a-zA-Z0-9]{8,}$/;
   const { theme, setTheme } = useContext(ThemeContext);
@@ -57,10 +57,14 @@ export default function CreateUser() {
           JSON.stringify([{ user: form.user, password: form.password }])
         );
       }
-      isRegister({
-        user: form.user,
-        password: form.password,
-      });
+      if (
+        isRegister({
+          user: form.user,
+          password: form.password,
+        })
+      ) {
+        return props.history.push("/");
+      }
     }
     return;
   }
@@ -87,8 +91,6 @@ export default function CreateUser() {
       errorToast("A senha não atende a todos os requisitos");
     }
     if (form.password !== form.confirmPassword) {
-      console.log(form.password);
-      console.log(form.confirmPassword);
       errors.confirmPassword = true;
       errorToast("As senhas não são iguais");
     }

@@ -1,8 +1,10 @@
 import React from "react";
 import { BrowserRouter, Redirect, Route, Switch } from "react-router-dom";
+import CreateLead from "../pages/CreateLead";
 import CreateUser from "../pages/CreateUser";
 //import
 import Login from "../pages/Login";
+import Painel from "../pages/Painel";
 
 export default function Routes() {
   return (
@@ -11,18 +13,12 @@ export default function Routes() {
         <PrivateRoutes
           exact
           path="/"
-          component={() => {
-            //painelLeads
-            return <h1>TelaLeads</h1>;
-          }}
+          component={Painel}
         />
         <PrivateRoutes
           exact
           path="/create"
-          component={() => {
-            //painelLeads
-            return <h1>Criar</h1>;
-          }}
+          component={CreateLead}
         />
         <CustomRoutes exact path="/login" component={Login} />
         <CustomRoutes exact path="/register" component={CreateUser} />

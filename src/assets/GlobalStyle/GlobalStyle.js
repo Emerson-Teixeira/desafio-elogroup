@@ -7,9 +7,11 @@ export const GlobalStyle = createGlobalStyle`
         font-family: 'Nunito Sans', sans-serif;
         font-size:16px;
         min-width: 375px;
+        max-width:1200px;
+        margin: 0 auto;
     }
     html,body,#root{
-        height: 100%;
+        height: 99%;
     }
     *{
         box-sizing: border-box;

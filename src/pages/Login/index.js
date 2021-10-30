@@ -12,7 +12,7 @@ import {
   FormWrapper,
 } from "./styles";
 
-export default function Login() {
+export default function Login(props) {
   const { theme, setTheme } = useContext(ThemeContext);
   const [showRedirect, setShowRedirect] = useState(false);
   const [form, setForm] = useState({
@@ -38,7 +38,9 @@ export default function Login() {
   function handleLogin(e) {
     e.preventDefault();
     if (checkForm(form)) {
-      isRegister(form);
+      if (isRegister(form)) {
+        return props.history.push("/");
+      }
     }
     return;
   }
