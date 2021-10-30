@@ -15,6 +15,15 @@ export function saveLeads(lead) {
     return false;
   }
 }
+export function saveArrayLeads(leads) {
+  try {
+    localStorage.setItem("arrayLeads", JSON.stringify(leads));
+    return true;
+  } catch (error) {
+    errorToast("Não Foi possivel salvar o lead");
+    return false;
+  }
+}
 export function getLeads() {
   try {
     const results = JSON.parse(localStorage.getItem("arrayLeads"));

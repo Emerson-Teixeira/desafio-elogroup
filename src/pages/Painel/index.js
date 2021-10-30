@@ -7,13 +7,31 @@ import {
   PanelTableWrapper,
 } from "./styles";
 import { BsPlusCircle } from "react-icons/bs";
-import { getLeads } from "../../utils/LeadsManager";
-import { useState } from "react";
+import { getLeads, saveArrayLeads } from "../../utils/LeadsManager";
+import { useEffect, useState } from "react";
 import Card from "../../components/Card";
 import Column from "../../components/Column";
 import columnType from "../../assets/staticData/status";
 export default function Painel(props) {
   const [dataCards, setDataCards] = useState(getLeads());
+  function changeStatus(index, newStatus) {
+    setDataCards((prevState) => {
+      return prevState.map((element, indexElement) => {
+        if (index === indexElement) {
+          return {
+            ...element,
+            status: newStatus,
+          };
+        } else
+          return {
+            ...element,
+          };
+      });
+    });
+  }
+  useEffect(() => {
+    saveArrayLeads(dataCards);
+  }, [dataCards]);
   return (
     <Container>
       <Header history={props.history} title="Painel de Leads" />
@@ -36,6 +54,8 @@ export default function Painel(props) {
                         oportunidades={elementCards.oportunidades}
                         phone={elementCards.phone}
                         status={elementCards.status}
+                        index={indexCard}
+                        changeStatus={changeStatus}
                       />
                     );
                   } else {

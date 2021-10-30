@@ -6,9 +6,19 @@ import {
   EmailCard,
   CustomSpan,
 } from "./styles";
+import { useDrag } from "react-dnd";
+import { ItemTypes } from "../../utils/itemTypes.js";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
-export default function Card({ name, email, oportunidades, phone, status }) {
+export default function Card({
+  name,
+  email,
+  oportunidades,
+  phone,
+  status,
+  changeStatus,
+  index,
+}) {
   const [showModal, setShowModal] = useState(false);
   function getColor(status) {
     switch (status) {
@@ -22,12 +32,31 @@ export default function Card({ name, email, oportunidades, phone, status }) {
         return "black";
     }
   }
+  const [{ isDragging }, dragRef] = useDrag(
+    () => ({
+      type: ItemTypes.CARD,
+      item: { status, changeStatus, index },
+      collect: (monitor) => ({
+        isDragging: monitor.isDragging(),
+      }),
+    }),
+    []
+  );
   return (
     <>
-      <CardContainer onClick={(e) => setShowModal(true)}>
-        <NameCard>Name: {name}</NameCard>
-        <EmailCard>Email: {email}</EmailCard>
-        <StatusCard color={getColor(status)} />
+      <CardContainer
+        isDragging={isDragging}
+        ref={dragRef}
+        onClick={(e) => setShowModal(true)}
+        color={getColor(status)}
+      >
+        {!isDragging && (
+          <>
+            <NameCard>Name: {name}</NameCard>
+            <EmailCard>Email: {email}</EmailCard>
+            <StatusCard color={getColor(status)} />
+          </>
+        )}
       </CardContainer>
       {showModal ? (
         <Modal

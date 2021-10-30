@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const CardContainer = styled.div`
-  background-color: ${(props) => props.theme.descriptionCard};
+  background-color: ${(props) => props.isDragging ? props.theme.background:props.theme.descriptionCard};
   width: 98%;
   min-width: 50px;
   height: 100px;
@@ -13,6 +13,7 @@ export const CardContainer = styled.div`
   flex-flow: column nowrap;
   justify-content: flex-start;
   align-items: center;
+  border: ${(props) => (props.isDragging ? `1px solid ${props.color} `: "none")};
   :hover {
     cursor: grab;
   }
