@@ -2,7 +2,8 @@ import styled from "styled-components";
 
 export const CardContainer = styled.div`
   background-color: ${(props) => props.theme.descriptionCard};
-  width: 300px;
+  width: 98%;
+  min-width: 50px;
   height: 100px;
   margin: 20px;
   border-radius: 6px;
@@ -12,6 +13,9 @@ export const CardContainer = styled.div`
   flex-flow: column nowrap;
   justify-content: flex-start;
   align-items: center;
+  :hover {
+    cursor: grab;
+  }
 `;
 export const NameCard = styled.div`
   font-weight: 600;

@@ -3,7 +3,6 @@ import Logo from "../Logo";
 import ThemeSwitch from "./components/ThemeSwitch";
 import { GiExitDoor } from "react-icons/gi";
 import { logout } from "../../utils/auth";
-import { deleteAllLeads } from "../../utils/LeadsManager";
 export default function Header({ title, history }) {
   return (
     <HeaderContainer>

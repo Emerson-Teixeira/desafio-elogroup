@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import Header from "../../components/header";
 import {
   Container,
@@ -9,6 +10,8 @@ import { BsPlusCircle } from "react-icons/bs";
 import { getLeads } from "../../utils/LeadsManager";
 import { useState } from "react";
 import Card from "../../components/Card";
+import Column from "../../components/Column";
+import columnType from "../../assets/staticData/status";
 export default function Painel(props) {
   const [dataCards, setDataCards] = useState(getLeads());
   return (
@@ -20,16 +23,26 @@ export default function Painel(props) {
           Novo Lead
         </CustomButton>
         <PanelTableWrapper>
-          {dataCards.map((Element, index) => {
+          {columnType.map((element, index) => {
             return (
-              <Card
-                key={index}
-                name={Element.name}
-                email={Element.email}
-                oportunidades={Element.oportunidades}
-                phone={Element.phone}
-                status={Element.status}
-              />
+              <Column key={index} name={element.tipo} status={element.status}>
+                {dataCards.map((elementCards, indexCard) => {
+                  if (elementCards.status === element.status) {
+                    return (
+                      <Card
+                        key={indexCard}
+                        name={elementCards.name}
+                        email={elementCards.email}
+                        oportunidades={elementCards.oportunidades}
+                        phone={elementCards.phone}
+                        status={elementCards.status}
+                      />
+                    );
+                  } else {
+                    return "";
+                  }
+                })}
+              </Column>
             );
           })}
         </PanelTableWrapper>

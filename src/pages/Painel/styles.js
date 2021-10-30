@@ -1,6 +1,5 @@
 import styled from "styled-components";
 export const Container = styled.div`
-  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -20,12 +19,12 @@ export const PanelWrapper = styled.div`
 
 export const PanelTableWrapper = styled.div`
   width: 100%;
+  min-height: 600px;
   height: 100%;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-flow: column nowrap;
-  border: 1px solid red;
+  align-items: flex-start;
+  justify-content: space-around;
+  flex-flow: row nowrap;
   margin-top: 20px;
 `;
 export const CustomButton = styled.button`
