@@ -107,7 +107,7 @@ export default function CreateUser(props) {
       <>
         <FormWrapper>
           {" "}
-          <Logo />
+          <Logo history={props.history} />
           <FormField error={formError.user}>
             <label>Usuario * </label>
             <input

@@ -20,7 +20,13 @@ const objTheme = {
   dark: theme1,
   light: theme2,
 };
-
+function isTouchDevice() {
+  return (
+    "ontouchstart" in window ||
+    navigator.maxTouchPoints > 0 ||
+    navigator.msMaxTouchPoints > 0
+  );
+}
 function App() {
   const [theme, setTheme] = useState("dark");
   return (
@@ -29,7 +35,7 @@ function App() {
       <ToastContainer limit={2} />
       <ThemeContext.Provider value={{ theme, setTheme }}>
         <DndProvider
-          backend={TouchBackend}
+          backend={isTouchDevice() ? TouchBackend : HTML5Backend}
           options={{ enableTouchEvents: "true", enableMouseEvents: "true" }}
         >
           <Routes />
