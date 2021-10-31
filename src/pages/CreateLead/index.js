@@ -64,12 +64,16 @@ export default function CreateLead(props) {
           <FormField error={formError.phone}>
             <label>Telefone*</label>
             <input type="text" onChange={handleForm} name="phone" />
-            {formError.phone && <span>Digite um telefone valido</span>}
+            {formError.phone && (
+              <span>Digite um telefone valido! Ex: (XX) XXXXX-XXXX</span>
+            )}
           </FormField>
           <FormField error={formError.email}>
             <label>Email*</label>
             <input type="text" onChange={handleForm} name="email" />
-            {formError.email && <span>Digite um email Valido</span>}
+            {formError.email && (
+              <span>Digite um email Valido! Ex: Email@email.com</span>
+            )}
           </FormField>
         </DataContainer>
         <TableContent>
