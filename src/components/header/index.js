@@ -1,8 +1,7 @@
 import { HeaderContainer, LogoContainer, CustomDiv } from "./styles";
 import Logo from "../Logo";
 import ThemeSwitch from "./components/ThemeSwitch";
-import { GiExitDoor } from "react-icons/gi";
-import { logout } from "../../utils/auth";
+import Logout from "./components/LogOut";
 export default function Header({ title, history }) {
   return (
     <HeaderContainer>
@@ -12,13 +11,7 @@ export default function Header({ title, history }) {
       <h3>{title}</h3>
       <CustomDiv>
         <ThemeSwitch />
-        <GiExitDoor
-          onClick={(e) => {
-            logout();
-            history.push("/");
-          }}
-          size={40}
-        />
+        <Logout history={history} />
       </CustomDiv>
     </HeaderContainer>
   );

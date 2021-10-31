@@ -44,6 +44,12 @@ export const FormField = styled.div`
     border: 1px solid ${(props) => (!props.error ? props.theme.text : "red")};
     padding: 3px;
   }
+  span{
+    color: red;
+    font-weight: 600;
+    text-align: justify;
+    margin-top: 5px;
+  }
 `;
 
 export const CustomButton = styled.button`

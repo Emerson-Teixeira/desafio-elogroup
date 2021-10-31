@@ -7,19 +7,8 @@ import {
 import { useDrop } from "react-dnd";
 import { ItemTypes } from "../../utils/itemTypes.js";
 import { successToast } from "../../utils/toasts";
+import { getColor } from "../../utils/utilsFunctions";
 export default function Column({ name, status, ...props }) {
-  function getColor(status) {
-    switch (status) {
-      case "0":
-        return "red";
-      case "1":
-        return "yellow";
-      case "2":
-        return "blue";
-      default:
-        return "black";
-    }
-  }
   const [, drop] = useDrop(() => ({
     accept: ItemTypes.CARD,
     canDrop: (item, monitor) => {

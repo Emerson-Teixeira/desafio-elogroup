@@ -7,13 +7,14 @@ import {
   PanelTableWrapper,
 } from "./styles";
 import { BsPlusCircle } from "react-icons/bs";
-import { getLeads, saveArrayLeads } from "../../utils/LeadsManager";
+import { getLeads, saveChangesLeads } from "../../utils/LeadsManager";
 import { useEffect, useState } from "react";
 import Card from "../../components/Card";
 import Column from "../../components/Column";
 import columnType from "../../assets/staticData/status";
 export default function Painel(props) {
   const [dataCards, setDataCards] = useState(getLeads());
+
   function changeStatus(index, newStatus) {
     setDataCards((prevState) => {
       return prevState.map((element, indexElement) => {
@@ -29,9 +30,11 @@ export default function Painel(props) {
       });
     });
   }
+
   useEffect(() => {
-    saveArrayLeads(dataCards);
+    saveChangesLeads(dataCards);
   }, [dataCards]);
+
   return (
     <Container>
       <Header history={props.history} title="Painel de Leads" />

@@ -11,23 +11,7 @@ const toastConfig = {
 
 const successToast = (msg) => toast.success(msg, toastConfig);
 
-const errorToast = (msg, type) => {
-  switch (type) {
-    case "not-register":
-      toast.error(
-        "Usuario não encontrado, verifique os dados e tente novamente!",
-        toastConfig
-      );
-      break;
-    case "wrong-password":
-      toast.error("A senha deve cumprir as regras!", toastConfig);
-      break;
-    default:
-      toast.error(msg, toastConfig);
-      break;
-  }
-  return;
-};
+const errorToast = (msg) => toast.error(msg);
 
 const infoToast = (msg) => toast.info(msg, toastConfig);
 

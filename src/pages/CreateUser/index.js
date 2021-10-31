@@ -2,8 +2,8 @@ import { useContext, useState } from "react";
 import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 import Logo from "../../components/Logo";
 import { ThemeContext } from "../../Contexts/themeContext";
-import { isRegister } from "../../utils/auth";
-import { errorToast } from "../../utils/toasts";
+import { createUser, isRegister } from "../../utils/auth";
+import { errorToast, successToast } from "../../utils/toasts";
 import {
   Container,
   CustomButton,
@@ -13,8 +13,6 @@ import {
 } from "./styles";
 
 export default function CreateUser(props) {
-  let regex =
-    /^(?=.*[@!#$%^&*()/\\])(?=.*[0-9])(?=.*[a-zA-Z])[@!#$%^&*()/\\a-zA-Z0-9]{8,}$/;
   const { theme, setTheme } = useContext(ThemeContext);
   const [showRedirect, setShowRedirect] = useState(false);
   const [form, setForm] = useState({
@@ -38,69 +36,25 @@ export default function CreateUser(props) {
       };
     });
   }
-
-  function handleRegister(e) {
+  const handleClick = (e) => {
     e.preventDefault();
-    if (checkForm(form)) {
-      let prevUsers = JSON.parse(localStorage.getItem("users-eloGroup"));
-      if (prevUsers)
-        localStorage.setItem(
-          "users-elogroup",
-          JSON.stringify([
-            ...prevUsers,
-            { user: form.user, password: form.password },
-          ])
-        );
-      else {
-        localStorage.setItem(
-          "users-elogroup",
-          JSON.stringify([{ user: form.user, password: form.password }])
-        );
-      }
-      if (
-        isRegister({
-          user: form.user,
-          password: form.password,
-        })
-      ) {
-        return props.history.push("/");
-      }
+    const { message, hasErrors, errors } = createUser(form);
+    if (errors) setFormError(errors);
+    if (hasErrors) return errorToast(message);
+    else {
+      successToast(message);
+      const { errors } = isRegister({
+        user: form.user,
+        password: form.password,
+      });
+      if (errors) props.history.push("/login");
+      else props.history.push("/");
     }
-    return;
-  }
-  function checkPassword(password) {
-    if (regex.test(password)) {
-      return true;
-    } else {
-      return false;
-    }
-  }
+  };
 
-  function checkForm(form) {
-    const errors = {
-      user: false,
-      false: false,
-      confirmPassword: false,
-    };
-    if (!form.user) {
-      errors.user = true;
-      errorToast("O usuario não pode ficar vazio");
-    }
-    if (!checkPassword(form.password)) {
-      errors.password = true;
-      errorToast("A senha não atende a todos os requisitos");
-    }
-    if (form.password !== form.confirmPassword) {
-      errors.confirmPassword = true;
-      errorToast("As senhas não são iguais");
-    }
-    if (errors.password || errors.user || errors.confirmPassword) {
-      setFormError(errors);
-      return false;
-    }
-    setFormError(errors);
-    return true;
-  }
+  const changeTheme = (e) => {
+    setTheme(theme === "dark" ? "light" : "dark");
+  };
 
   return (
     <Container>
@@ -115,9 +69,10 @@ export default function CreateUser(props) {
               onChange={handleForm}
               name="user"
               placeholder="Digite seu usuario"
-              autocomplete="off"
+              autoComplete="off"
               value={form.user}
             />
+            {formError.user && <span>Escolha um nome de usuário</span>}
           </FormField>
           <FormField error={formError.password}>
             <label>Senha *</label>
@@ -126,9 +81,15 @@ export default function CreateUser(props) {
               onChange={handleForm}
               name="password"
               placeholder="*******"
-              autocomplete="off"
+              autoComplete="off"
               value={form.password}
             />
+            {formError.password && (
+              <span>
+                A senha deve ter: ao menos 8 caracteres, um caracter especial,
+                um caracter numérico e um caracter alfanumérico{" "}
+              </span>
+            )}
           </FormField>
           <FormField error={formError.confirmPassword}>
             <label>Confirmar Senha * </label>
@@ -137,17 +98,16 @@ export default function CreateUser(props) {
               onChange={handleForm}
               name="confirmPassword"
               placeholder="*******"
-              autocomplete="off"
+              autoComplete="off"
               value={form.confirmPassword}
             />
+            {formError.confirmPassword && (
+              <span>As senhas devem ser iguais</span>
+            )}
           </FormField>
-          <CustomButton onClick={handleRegister}>Registrar</CustomButton>
+          <CustomButton onClick={handleClick}>Registrar</CustomButton>
         </FormWrapper>
-        <CustomSpan
-          onClick={(e) => setTheme(theme === "dark" ? "light" : "dark")}
-        >
-          Alterar tema
-        </CustomSpan>
+        <CustomSpan onClick={changeTheme}>Alterar tema</CustomSpan>
         <CustomSpan onClick={(e) => setShowRedirect((prevState) => !prevState)}>
           Já possui uma conta? Faça login!
         </CustomSpan>

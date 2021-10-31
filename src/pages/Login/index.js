@@ -3,7 +3,7 @@ import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 import Logo from "../../components/Logo";
 import { ThemeContext } from "../../Contexts/themeContext";
 import { isRegister } from "../../utils/auth";
-import { errorToast } from "../../utils/toasts";
+import { errorToast, successToast } from "../../utils/toasts";
 import {
   Container,
   CustomButton,
@@ -15,6 +15,7 @@ import {
 export default function Login(props) {
   const { theme, setTheme } = useContext(ThemeContext);
   const [showRedirect, setShowRedirect] = useState(false);
+
   const [form, setForm] = useState({
     user: "",
     password: "",
@@ -37,32 +38,24 @@ export default function Login(props) {
 
   function handleLogin(e) {
     e.preventDefault();
-    if (checkForm(form)) {
-      if (isRegister(form)) {
-        return props.history.push("/");
-      }
-    }
-    return;
-  }
-
-  function checkForm(form) {
-    const errors = {
-      user: false,
-      false: false,
-    };
-    if (!form.user) {
-      errors.user = true;
-    }
-    if (!form.password) {
-      errors.password = true;
-    }
-    if (errors.password || errors.user) {
+    const { hasErrors, errors, message } = isRegister(form);
+    if (hasErrors) {
       setFormError(errors);
-      errorToast("Preencha os campos corretamente", null);
-      return false;
+      errorToast("Preencha Corretamente os campos");
+      return;
+    } else {
+      setFormError({
+        user: "",
+        password: "",
+      });
     }
-    setFormError(errors);
-    return true;
+    if (errors) {
+      errorToast(message);
+      return;
+    } else {
+      successToast(message);
+      props.history.push("/");
+    }
   }
 
   return (

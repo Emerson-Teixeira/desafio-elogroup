@@ -1,9 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 
 //routes
-
 import Routes from "./routes/Routes";
 
 //Styled-Components
@@ -16,10 +15,12 @@ import { ThemeContext } from "./Contexts/themeContext";
 import { HTML5Backend } from "react-dnd-html5-backend"; //use Isso se o intuito é usar somente no computador
 import { DndProvider } from "react-dnd";
 import { TouchBackend } from "react-dnd-touch-backend";
+
 const objTheme = {
   dark: theme1,
   light: theme2,
 };
+
 function isTouchDevice() {
   return (
     "ontouchstart" in window ||
@@ -27,8 +28,16 @@ function isTouchDevice() {
     navigator.msMaxTouchPoints > 0
   );
 }
+
 function App() {
-  const [theme, setTheme] = useState("dark");
+  const [theme, setTheme] = useState(
+    localStorage.getItem("themeEloGroup") || "dark"
+  );
+
+  useEffect(() => {
+    localStorage.setItem("themeEloGroup", theme);
+  }, [theme]);
+
   return (
     <ThemeProvider theme={objTheme[theme]}>
       <GlobalStyle />
@@ -36,7 +45,11 @@ function App() {
       <ThemeContext.Provider value={{ theme, setTheme }}>
         <DndProvider
           backend={isTouchDevice() ? TouchBackend : HTML5Backend}
-          options={{ enableTouchEvents: "true", enableMouseEvents: "true" }}
+          options={
+            isTouchDevice()
+              ? { enableTouchEvents: "true", enableMouseEvents: "true" }
+              : {}
+          }
         >
           <Routes />
         </DndProvider>

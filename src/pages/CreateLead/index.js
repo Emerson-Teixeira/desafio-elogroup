@@ -1,6 +1,6 @@
 import Header from "../../components/header";
 import Table from "./Components/Table";
-import { errorToast } from "../../utils/toasts";
+import { errorToast, successToast } from "../../utils/toasts";
 import { useState } from "react";
 import {
   FormContainer,
@@ -10,12 +10,8 @@ import {
   CustomButton,
   Container,
 } from "./styles";
-import { saveLeads } from "../../utils/LeadsManager";
+import { saveArrayLeads } from "../../utils/LeadsManager";
 export default function CreateLead(props) {
-  var regEmail = /^[\w+.]+@\w+\.\w{2,}(?:\.\w{2})?$/;
-  let regPhone =
-    /^(?:(?:\+|00)?(55)\s?)?(?:(?:\(?[1-9][0-9]\)?)?\s?)?(?:((?:9\d|[2-9])\d{3})-?(\d{4}))$/;
-
   const [tableOptions, setTableOptions] = useState(null);
   const [data, setData] = useState({
     name: "",
@@ -39,49 +35,20 @@ export default function CreateLead(props) {
     });
   }
 
-  function checkForm(form) {
-    const errors = {
-      name: false,
-      phone: false,
-      email: false,
-      options: false,
-    };
-    if (!data.name) {
-      errors.name = true;
-      errorToast("O nome não pode ficar vazio");
-    }
-    if (!regPhone.test(data.phone)) {
-      errors.phone = true;
-      errorToast("Insira um telefone valido");
-    }
-    if (!regEmail.test(data.email)) {
-      errors.email = true;
-      errorToast("Insira um email valido");
-    }
-    if (!tableOptions.find((Element) => Element.status === true)) {
-      errors.options = true;
-      errorToast("É necessario escolher uma oportunidade para continuar");
-    }
-    if (errors.email || errors.name || errors.phone || errors.options) {
-      setFormError(errors);
-      return false;
-    }
-    setFormError(errors);
-    return true;
-  }
-
   function handleLead(e) {
     e.preventDefault();
-    if (checkForm()) {
-      if (
-        saveLeads({
-          ...data,
-          oportunidades: tableOptions
-            .filter((Element) => Element.status === true)
-            .map((Element) => Element.tipo),
-        })
-      )
-        props.history.push("/");
+    const { hasErrors, message, errors } = saveArrayLeads(data, tableOptions);
+    if (hasErrors) {
+      setFormError(errors);
+      errorToast(message);
+      if (errors.options) {
+        errorToast("É necessario escolher uma oportunidade");
+      }
+      return;
+    }
+    if (!hasErrors) {
+      successToast(message);
+      props.history.push("/");
     }
   }
   return (
@@ -92,14 +59,17 @@ export default function CreateLead(props) {
           <FormField error={formError.name}>
             <label>Nome*</label>
             <input type="text" onChange={handleForm} name="name" />
+            {formError.name && <span>É necessario digitar um nome</span>}
           </FormField>
           <FormField error={formError.phone}>
             <label>Telefone*</label>
             <input type="text" onChange={handleForm} name="phone" />
+            {formError.phone && <span>Digite um telefone valido</span>}
           </FormField>
           <FormField error={formError.email}>
             <label>Email*</label>
             <input type="text" onChange={handleForm} name="email" />
+            {formError.email && <span>Digite um email Valido</span>}
           </FormField>
         </DataContainer>
         <TableContent>
