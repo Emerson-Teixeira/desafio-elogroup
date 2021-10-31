@@ -10,18 +10,11 @@ export default function Routes() {
   return (
     <BrowserRouter>
       <Switch>
-        <PrivateRoutes
-          exact
-          path="/"
-          component={Painel}
-        />
-        <PrivateRoutes
-          exact
-          path="/create"
-          component={CreateLead}
-        />
+        <PrivateRoutes exact path="/" component={Painel} />
+        <PrivateRoutes exact path="/create" component={CreateLead} />
         <CustomRoutes exact path="/login" component={Login} />
         <CustomRoutes exact path="/register" component={CreateUser} />
+        <ErrorRoutes path="*" />
       </Switch>
     </BrowserRouter>
   );
@@ -55,4 +48,8 @@ function CustomRoutes({ component: Component, ...rest }) {
       }
     />
   );
+}
+
+function ErrorRoutes({ component: Component, ...rest }) {
+  return <Route {...rest} render={(props) => <Redirect to={"/"} />} />;
 }

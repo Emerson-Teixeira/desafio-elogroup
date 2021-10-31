@@ -4,7 +4,7 @@ Projeto feito para o desafio proposto da ELOGROUP
 
 # Rodando
 
-Para iniciar o projeto de o comando ("NPM start") ou acesse o link ('https://projeto-leads.herokuapp.com/')
+Para iniciar o projeto de o comando ("NPM start")
 
 # Rotas
 
