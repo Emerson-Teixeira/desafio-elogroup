@@ -68,7 +68,9 @@ export function saveArrayLeads(leads, leadsTable) {
           ...arrayLeads,
           {
             ...leads,
-            oportunidades: leadsTable.map((Element) => Element.tipo),
+            oportunidades: leadsTable
+              .filter((Element) => Element.status === true)
+              .map((Element) => Element.tipo),
           },
         ])
       );
