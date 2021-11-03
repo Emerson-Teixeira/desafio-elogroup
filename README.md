@@ -1,6 +1,6 @@
 # Inicio
 
-Projeto feito para o desafio proposto da ELOGROUP
+Projeto feito para o desafio proposto da ELOGROUP, projeto totalmente responsivo.
 
 # Rodando
 
